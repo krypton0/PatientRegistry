@@ -6,7 +6,7 @@ export const GET_PATIENTS = gql`
       id
       name
       age
-      lastDiagnosis
+      diagnosis
     }
   }
 `;
@@ -15,7 +15,7 @@ export interface Patient {
     id: string;
     name: string;
     age: number;
-    lastDiagnosis: string;
+    diagnosis: string;
 }
 
 export interface GetPatientsData {
