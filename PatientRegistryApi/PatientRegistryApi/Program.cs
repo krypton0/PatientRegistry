@@ -18,6 +18,17 @@ builder.Services
     .AddMutationType<Mutations>()
     .AddType<PatientType>();
 
+// TODO make DEV conditioning for cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOrigin", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
@@ -37,6 +48,7 @@ app.MapGet("/graphql/schema", async (IServiceProvider services) =>
     var schema = await services.GetRequiredService<IRequestExecutorResolver>().GetRequestExecutorAsync();
     return Results.Ok(schema.Schema.ToString());
 });
+app.UseCors("AllowAnyOrigin");
 
 app.UseHttpsRedirection();
 
