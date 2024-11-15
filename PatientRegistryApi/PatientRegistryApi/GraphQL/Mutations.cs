@@ -6,8 +6,6 @@ namespace PatientRegistryApi.GraphQL
 {
     public class Mutations
     {
-
-        // TODO Add to DB
         // TODO Add documentation
 
         public async Task<Patient> AddPatient(PatientDto patientDto, [Service] AppDbContext dbContext)
