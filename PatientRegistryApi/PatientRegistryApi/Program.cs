@@ -1,6 +1,5 @@
 using HotChocolate.Execution;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using PatientRegistryApi;
 using PatientRegistryApi.GraphQL;
 
@@ -16,7 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Queries>()
-    .AddMutationType<Mutations>();
+    .AddMutationType<Mutations>()
+    .AddType<PatientType>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
@@ -47,7 +47,7 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    dbContext.Database.Migrate(); // Applies any pending migrations
+    dbContext.Database.Migrate();
 }
 
 app.Run();
