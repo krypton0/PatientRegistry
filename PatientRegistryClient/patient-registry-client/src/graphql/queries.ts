@@ -6,7 +6,10 @@ export const GET_PATIENTS = gql`
       id
       name
       age
-      diagnosis
+      diagnostics {
+          date
+          diagnosis
+      }
     }
   }
 `;
@@ -15,7 +18,7 @@ export interface Patient {
     id: string;
     name: string;
     age: number;
-    diagnosis: string;
+    diagnostics: Diagnosis[]; // TODO rename type to diagnostics
 }
 
 export interface GetPatientsData {
@@ -39,6 +42,7 @@ export const GET_PATIENT_DETAILS = gql`
 `;
 
 export interface Diagnosis {
+    id: number,
     date: string;
     diagnosis: string;
 }

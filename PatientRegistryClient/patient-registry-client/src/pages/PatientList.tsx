@@ -21,7 +21,7 @@ const PatientList: React.FC = () => {
                         <div>
                             <p className="text-xl font-semibold">{patient.name}</p>
                             <p>Age: {patient.age}</p>
-                            <p>Last Diagnosis: {patient.diagnosis}</p>
+                            <p>Last Diagnosis: {patient.diagnostics[0]?.diagnosis}</p>
                         </div>
                         <Link
                             to={`/patients/${patient.id}`}
