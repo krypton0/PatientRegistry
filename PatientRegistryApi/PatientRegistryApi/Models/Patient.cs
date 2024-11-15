@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
-        public string Diagnosis { get; set; }
+
+        public List<Diagnostic> Diagnostics { get; set; } = new List<Diagnostic>();
     }
 }

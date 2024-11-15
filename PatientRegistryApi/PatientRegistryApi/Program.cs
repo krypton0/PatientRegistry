@@ -2,6 +2,7 @@ using HotChocolate.Execution;
 using Microsoft.EntityFrameworkCore;
 using PatientRegistryApi;
 using PatientRegistryApi.GraphQL;
+using PatientRegistryApi.GraphQL.Types;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,8 @@ builder.Services
     .AddGraphQLServer()
     .AddQueryType<Queries>()
     .AddMutationType<Mutations>()
-    .AddType<PatientType>();
+    .AddType<PatientType>()
+    .AddType<DiagnosticType>();
 
 // TODO make DEV conditioning for cors
 builder.Services.AddCors(options =>

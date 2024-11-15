@@ -10,5 +10,6 @@ namespace PatientRegistryApi
         }
 
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<Diagnostic> Diagnostics { get; set; }
     }
 }

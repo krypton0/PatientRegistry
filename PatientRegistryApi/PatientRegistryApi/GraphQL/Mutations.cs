@@ -14,8 +14,7 @@ namespace PatientRegistryApi.GraphQL
             var patient = new Patient
             {
                 Name = patientDto.Name,
-                Age = patientDto.Age ?? 0,
-                Diagnosis = patientDto.Diagnosis ?? ""
+                Age = patientDto.Age ?? 0
             };
 
             dbContext.Patients.Add(patient);
@@ -33,7 +32,6 @@ namespace PatientRegistryApi.GraphQL
             // TODO throw API exceptions
             patient.Name = patientDto.Name ?? "";
             patient.Age = patientDto.Age ?? 0;
-            patient.Diagnosis = patientDto.Diagnosis ?? "";
 
             await dbContext.SaveChangesAsync();
             return patient;
@@ -42,13 +40,17 @@ namespace PatientRegistryApi.GraphQL
         public async Task<bool> DeletePatient(int id, [Service] AppDbContext dbContext)
         {
             // TODO throw API exceptions
-            var patient = await dbContext.Patients.FirstOrDefaultAsync(p => p.Id == id);
+            var patient = await dbContext.Patients
+                .Include(p => p.Diagnostics)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (patient == null)
                 return false;
 
+            dbContext.Diagnostics.RemoveRange(patient.Diagnostics);
             dbContext.Patients.Remove(patient);
             await dbContext.SaveChangesAsync();
+
             return true;
         }
     }

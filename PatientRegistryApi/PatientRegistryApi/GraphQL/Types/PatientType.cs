@@ -1,6 +1,6 @@
 ﻿using PatientRegistryApi.Models;
 
-namespace PatientRegistryApi.GraphQL
+namespace PatientRegistryApi.GraphQL.Types
 {
     public class PatientType : ObjectType<Patient>
     {
@@ -9,7 +9,7 @@ namespace PatientRegistryApi.GraphQL
             descriptor.Field(p => p.Id).Type<IdType>();
             descriptor.Field(p => p.Name).Type<StringType>();
             descriptor.Field(p => p.Age).Type<IntType>();
-            descriptor.Field(p => p.Diagnosis).Type<StringType>();
+            descriptor.Field(p => p.Diagnostics).Type<ListType<DiagnosticType>>();
         }
     }
 }
