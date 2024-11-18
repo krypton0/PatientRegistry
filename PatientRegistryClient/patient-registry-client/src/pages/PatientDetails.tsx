@@ -12,7 +12,7 @@ const PatientDetails: React.FC = () => {
 
     const { loading, error, data } = useQuery<PatientDetailsData, PatientDetailsVars>(
         GET_PATIENT_DETAILS,
-        { variables: { id: id! } }
+        { variables: { id: +(id!) } }
     );
 
     if (loading) return <p className="text-blue-500">Loading...</p>;
@@ -26,20 +26,20 @@ const PatientDetails: React.FC = () => {
             <p className="text-lg">Age: {patient?.age}</p>
             <h2 className="text-2xl font-semibold mt-6">Diagnosis History</h2>
             <ul className="space-y-2 mt-2">
-                {patient?.diagnosisHistory.map((history, index) => (
+                {patient?.diagnostics.map((diagnostic, index) => (
                     <li key={index} className="p-2 bg-gray-100 rounded shadow">
-                        <p>{history.date}: {history.diagnosis}</p>
+                        <p>{diagnostic.date}: {diagnostic.diagnosis}</p>
                     </li>
                 ))}
             </ul>
             <h2 className="text-2xl font-semibold mt-6">Examination Image</h2>
-            {patient?.examinationImageUrl && (
-                <img
-                    src={patient.examinationImageUrl}
-                    alt="Examination"
-                    className="mt-4 max-w-full h-auto rounded shadow"
-                />
-            )}
+            {/*{patient?.examinationImageUrl && (*/}
+            {/*    <img*/}
+            {/*        src={patient.examinationImageUrl}*/}
+            {/*        alt="Examination"*/}
+            {/*        className="mt-4 max-w-full h-auto rounded shadow"*/}
+            {/*    />*/}
+            {/*)}*/}
         </div>
     );
 };

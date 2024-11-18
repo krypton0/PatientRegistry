@@ -15,10 +15,10 @@ export const GET_PATIENTS = gql`
 `;
 
 export interface Patient {
-    id: string;
+    id: number;
     name: string;
     age: number;
-    diagnostics: Diagnosis[]; // TODO rename type to diagnostics
+    diagnostics: Diagnostics[];
 }
 
 export interface GetPatientsData {
@@ -27,21 +27,20 @@ export interface GetPatientsData {
 
 
 export const GET_PATIENT_DETAILS = gql`
-  query GetPatientDetails($id: ID!) {
+  query GetPatient($id: Int!) {
     patient(id: $id) {
       id
       name
       age
-      diagnosisHistory {
+      diagnostics {
         date
         diagnosis
       }
-      examinationImageUrl
     }
   }
 `;
 
-export interface Diagnosis {
+export interface Diagnostics {
     id: number,
     date: string;
     diagnosis: string;
@@ -49,14 +48,13 @@ export interface Diagnosis {
 
 export interface PatientDetailsData {
     patient: {
-        id: string;
+        id: number;
         name: string;
         age: number;
-        diagnosisHistory: Diagnosis[];
-        examinationImageUrl: string;
+        diagnostics: Diagnostics[];
     };
 }
 
 export interface PatientDetailsVars {
-    id: string;
+    id: number;
 }
