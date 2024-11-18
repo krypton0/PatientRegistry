@@ -29,7 +29,7 @@ const PatientDetails: React.FC = () => {
             await updatePatient({
                 variables: {
                     patientInput: {
-                        id: patient?.id,
+                        id: +(patient?.id),
                         name: patientName,
                         age: patientAge
                     }
@@ -46,7 +46,10 @@ const PatientDetails: React.FC = () => {
 
         try {
             await addDiagnostic({
-                variables: { id: patient?.id, diagnosis: newDiagnosis },
+                variables: {
+                    id: +(patient?.id),
+                    diagnosis: newDiagnosis
+                },
             });
             setNewDiagnosis(''); // clear input after successful add
             alert('Diagnostic added');

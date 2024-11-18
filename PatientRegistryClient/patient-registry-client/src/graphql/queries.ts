@@ -46,8 +46,6 @@ export const ADD_DIAGNOSTIC = gql`
   mutation AddDiagnostic($id: Int!, $diagnosis: String!) {
     addDiagnostic(id: $id, diagnosis: $diagnosis) {
       id
-      diagnosis
-      date
     }
 }
 `;
