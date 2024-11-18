@@ -3,7 +3,7 @@
     public class Diagnostic
     {
         public int Id { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.UtcNow;
         public string? Diagnosis { get; set; }
 
         // Foreign Key

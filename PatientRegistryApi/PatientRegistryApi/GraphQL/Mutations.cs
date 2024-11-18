@@ -13,8 +13,7 @@ namespace PatientRegistryApi.GraphQL
             // TODO throw API exceptions
             var diagnostic = new Diagnostic()
             {
-                Diagnosis = diagnosis,
-                Date = DateTime.UtcNow,
+                Diagnosis = diagnosis
             };
 
             var patient = new Patient
@@ -39,6 +38,19 @@ namespace PatientRegistryApi.GraphQL
             // TODO throw API exceptions
             patient.Name = patientInput.Name ?? "";
             patient.Age = patientInput.Age ?? 0;
+
+            await dbContext.SaveChangesAsync();
+            return patient;
+        }
+
+        public async Task<Patient?> AddDiagnostic(int id, string diagnosis, [Service] AppDbContext dbContext)
+        {
+            var patient = await dbContext.Patients.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (patient == default)
+                return default;
+
+            patient.Diagnostics.Add(new() { Diagnosis = diagnosis });
 
             await dbContext.SaveChangesAsync();
             return patient;
