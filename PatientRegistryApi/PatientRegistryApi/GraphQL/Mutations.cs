@@ -13,7 +13,8 @@ namespace PatientRegistryApi.GraphQL
             // TODO throw API exceptions
             var diagnostic = new Diagnostic()
             {
-                Diagnosis = diagnosis
+                Diagnosis = diagnosis,
+                Date = DateTime.UtcNow,
             };
 
             var patient = new Patient
