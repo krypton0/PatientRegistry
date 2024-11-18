@@ -1,6 +1,7 @@
 using HotChocolate.Execution;
 using Microsoft.EntityFrameworkCore;
 using PatientRegistryApi;
+using PatientRegistryApi.Dtos;
 using PatientRegistryApi.GraphQL;
 using PatientRegistryApi.GraphQL.Types;
 

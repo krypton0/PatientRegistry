@@ -8,13 +8,19 @@ namespace PatientRegistryApi.GraphQL
     {
         // TODO Add documentation
 
-        public async Task<Patient> AddPatient(PatientDto patientDto, [Service] AppDbContext dbContext)
+        public async Task<Patient> AddPatient(PatientInput patientInput, string diagnosis, [Service] AppDbContext dbContext)
         {
             // TODO throw API exceptions
+            var diagnostic = new Diagnostic()
+            {
+                Diagnosis = diagnosis
+            };
+
             var patient = new Patient
             {
-                Name = patientDto.Name,
-                Age = patientDto.Age ?? 0
+                Name = patientInput.Name,
+                Age = patientInput.Age ?? 0,
+                Diagnostics = new List<Diagnostic>() { diagnostic }
             };
 
             dbContext.Patients.Add(patient);
@@ -22,16 +28,16 @@ namespace PatientRegistryApi.GraphQL
             return patient;
         }
 
-        public async Task<Patient?> UpdatePatient(PatientDto patientDto, [Service] AppDbContext dbContext)
+        public async Task<Patient?> UpdatePatient(PatientInput patientInput, [Service] AppDbContext dbContext)
         {
-            var patient = await dbContext.Patients.FirstOrDefaultAsync(p => p.Id == patientDto.Id);
+            var patient = await dbContext.Patients.FirstOrDefaultAsync(p => p.Id == patientInput.Id);
 
             if (patient == default)
                 return default;
 
             // TODO throw API exceptions
-            patient.Name = patientDto.Name ?? "";
-            patient.Age = patientDto.Age ?? 0;
+            patient.Name = patientInput.Name ?? "";
+            patient.Age = patientInput.Age ?? 0;
 
             await dbContext.SaveChangesAsync();
             return patient;
